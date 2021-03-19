@@ -1,1 +1,7 @@
-welcome to the homepage
+<h1>
+  Latest Updates
+</h1>
+<% @posts.each do |post| %> <!-- looping through array of posts called post, will be used to display posts to user-->
+<h2><%= link_to post.title, post_path(post)%> </h2> <!--using link_to on the post title to link to the actual blog post from model-->
+<p><%= post.summary %></p>
+<% end %>
