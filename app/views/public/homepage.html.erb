@@ -1,7 +1,33 @@
-<h1>
-  Latest Updates
-</h1>
-<% @posts.each do |post| %> <!-- looping through array of posts called post, will be used to display posts to user-->
-<h2><%= link_to post.title, post_path(post)%> </h2> <!--using link_to on the post title to link to the actual blog post from model-->
-<p><%= post.summary %></p>
+<% content_for :page_title, "Welcome" %> <!--- welcome title for browser tab-- will be called in application.html.erb (layouts) using yeild tag-->
+
+<div class = "row">
+  <div class="col-8">
+    <p class="h4">Latest Updates</p>
+    
+<% @posts.each do |post| %> <!-- looping through array of posts called post, will be used to display posts to user!-->
+<%= render partial: "posts/post" ,locals: {post: post} %> <!-- using partial to displayposts, assigning local verible post to post-->
 <% end %>
+ 
+<a class="twitter-timeline" id="twitter-timeline" data-width="500" data-height="350"  data-theme="dark" href="https://twitter.com/GetFitDaily?ref_src=twsrc%5Etfw">Tweets by GetFitDaily</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> <!--external twitter feed embeded on homepage-->
+
+<% content_for :scripts do %> <!-- this block is for use with jscipt etc, will display at bottom of homepage see application.html.erb also-->
+
+
+<%end%>
+   </div>
+
+    <div class="col-4">
+      <p class ="h4">
+        Mission
+      </p>
+      Welcome to CoviFit <br>
+      
+      in light of the recent covid19 pandemic we wanted to be able to share home workouts with our clients.<br>
+      In this application you will find all of our recent home workouts as well as our twitter fitness feed of the week<br>
+      
+      
+      <p>
+    </div>
+    
+  </div>
+

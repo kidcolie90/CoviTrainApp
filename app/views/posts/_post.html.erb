@@ -1,0 +1,4 @@
+<% if local_assigns[:post] %> <!----if local var post is assigned excute following code-->
+<p class="h4"><%= link_to post.title, post_path(post)%> </p>
+<p><% post.summary %></p>
+<%end%>
