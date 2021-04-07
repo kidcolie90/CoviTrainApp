@@ -3,5 +3,4 @@ class PublicController < ApplicationController #new controller inherits applicat
   def homepage
     @posts = Post.all
   end
-  
 end

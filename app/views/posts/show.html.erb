@@ -2,6 +2,6 @@
   <%= @post.title %>
 </h1>
   
-
+<%= @post.details %> <!--displaying time details created in post.rb with strftime helper --!> 
 
   <%=simple_format @post.body %> <!-- using simple format helper to style text and wrap them in paragrahs--!>
