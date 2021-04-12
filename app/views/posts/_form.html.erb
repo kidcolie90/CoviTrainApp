@@ -11,10 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
+ <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
+
+
 
   <div class="field">
     <%= form.label :summary %>
@@ -24,6 +26,12 @@
   <div class="field">
     <%= form.label :body %>
     <%= form.text_area :body %>
+  </div>
+
+  <div class="field">  <!-- added to include catagory id in dropdown menu for new posts, catagory id was added late through db migration!-->
+  
+    <%= form.label :category_id %> 
+    <%= form.select :category_id, Category.all.collect{ |c| [c.title, c.id]} %>  <!-- using array to display-- title on select feild and id will be saved as option value from select form--!>
   </div>
 
   <div class="field">

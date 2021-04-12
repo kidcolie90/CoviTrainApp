@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy, save, :save_post_view ]
+  
+  before_action :authenticate_account!, except: [:show] #user must have an account to use crud functionality except for show view
 
+  before_action :can_destroy_post, onlu: [:edit, :update, :destroy]
+  
+  
   # GET /posts or /posts.json
   def index
     @posts = Post.all
@@ -22,6 +27,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @post.account_id = current_account.id #returns id as part of post using helper
 
     respond_to do |format|
       if @post.save
@@ -55,15 +61,32 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+#  def save_post_view #method to count the views of a particular blog
+ #   @post.increment(:views,1).save
+  #end never used in site, couldnt get this to work!
+  
+ #only user who created post can destroy it below:
+  
+
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_post
+    def set_post #set post method creates instance var for post
       @post = Post.find(params[:id])
     end
+  
+  
+    def can_destroy_post
+    
+   redirect_back (fallback_location: rooth_path) unless @post.account_id == current_account.id #checking if accoutn id on post is = to account id on post using current account id helper and instance var of post, redirecting to last page visted if id does not match using  redirect_back 
+    
+  end
+  
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :summary, :body, :active)
+      params.require(:post).permit(:title, :summary, :body, :active, :category_id)
     end
 end

@@ -1,0 +1,5 @@
+<%=form_with(url: post_view_path, html: {id:""}) do |form| %> <!--form helper to count views on each blog post--!>
+
+<%=form.hidden_field :id, value: post.id %>
+
+<%end%>
