@@ -1,11 +1,9 @@
 class PostsController < ApplicationController
   
-   before_action :authenticate_account!, except: [:show] #user must have an account to use crud functionality except for show view
-
-
-  before_action :set_post, only: [ :show, :edit, :update, :destroy, :save_post_view ]
+before_action :set_post, only: [ :show, :edit, :update, :destroy, :save_post_view ] 
   
- 
+  before_action :authenticate_account!, except: [:show] #user must have an account to use crud functionality except for show view
+
   before_action :can_destroy_post, only: [:edit, :update, :destroy]
   
   
