@@ -14,7 +14,7 @@ class Post < ApplicationRecord
     
   
     
-    
+    #-below was never used in produ
    # after_create :post_log #trigger post log method after record has been added/ after blog post has been added
     
 #    private post_log #will log and count total num of posts per catagory

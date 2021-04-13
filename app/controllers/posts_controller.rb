@@ -1,9 +1,12 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy, save, :save_post_view ]
   
-  before_action :authenticate_account!, except: [:show] #user must have an account to use crud functionality except for show view
+   before_action :authenticate_account!, except: [:show] #user must have an account to use crud functionality except for show view
 
-  before_action :can_destroy_post, onlu: [:edit, :update, :destroy]
+
+  before_action :set_post, only: [ :show, :edit, :update, :destroy, :save_post_view ]
+  
+ 
+  before_action :can_destroy_post, only: [:edit, :update, :destroy]
   
   
   # GET /posts or /posts.json
@@ -66,10 +69,7 @@ class PostsController < ApplicationController
  #   @post.increment(:views,1).save
   #end never used in site, couldnt get this to work!
   
- #only user who created post can destroy it below:
-  
-
-  
+ 
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -77,10 +77,10 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
   
-  
+   #only user who created post can destroy it below:
     def can_destroy_post
     
-   redirect_back (fallback_location: rooth_path) unless @post.account_id == current_account.id #checking if accoutn id on post is = to account id on post using current account id helper and instance var of post, redirecting to last page visted if id does not match using  redirect_back 
+   redirect_back(fallback_location: root_path)  unless @post.account_id == current_account.id
     
   end
   
